@@ -28,18 +28,20 @@ class Game{
             }
     player1 = createSprite(200,500);
     player1.addImage("player1",player_img);
-    
+   
     player2 = createSprite(800,500);
     player2.addImage("player2", player_img);
+    
     players=[player1,player2];
 
         }
     
     play(){
-        
+             
                 form.hide();
 
                 Player.getPlayerInfo();
+                
                  image(back_img, 0, 0, 1000, 800);
                  var x =100;
                  var y=200;
@@ -70,7 +72,7 @@ class Game{
                 
                 
                  
-
+                 
                 if (keyIsDown(RIGHT_ARROW) && player.index !== null) {
                     player.distance -= 10
                     player.update();
@@ -86,6 +88,9 @@ class Game{
                      var rand = Math.round(random(1,5));
                      switch(rand){
                          case 1: fruits.addImage("fruit1",fruit1_img);
+                                // if(fruits.y>500){
+                                //     player.score=player.score+1;
+                                // }
                          break;
                          case 2: fruits.addImage("fruit1", fruit2_img);
                          break;
@@ -96,12 +101,28 @@ class Game{
                          case 5: fruits.addImage("fruit1", fruit5_img);
                          break;
                      }
+                     
+
                      fruitGroup.add(fruits);
                      
                  }
-                 
+                //  player1.bounceOff(leftEdge);
+                //  player1.bounceOff(rightEdge);
+                
+                //  player2.bounceOff(leftEdge);
+                //  player2.bounceOff(rightEdge);
                   if (player.index !== null) {
                      //fill code here, to destroy the objects.
+                     if(fruitGroup.isTouching(player1)||fruitGroup.isTouching(player2)){
+                        fruitGroup.destroyEach();
+                        player.score+=1;
+                   }
+                  
+                    fill("white");
+                    text("Player "+ player.index + " : "+player.score,50,50);
+                    
+                   // text("Player 2 : "+player.score,50,100);
+                        
                   }
                 
 
